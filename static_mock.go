@@ -16,6 +16,11 @@ import (
 var errorMsg = errors.New("Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub")
 
 func init() {
+	defer func() {
+		if err := recover(); err != nil {
+			logs.Error("[not panic] already register %v", err)
+		}
+	}()
 	sql.Register("sqlite3", &SQLiteDriver{})
 }
 
