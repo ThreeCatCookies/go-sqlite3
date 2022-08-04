@@ -21,7 +21,7 @@ func init() {
 			logs.Error("[not panic] already register %v", err)
 		}
 	}()
-	sql.Register("sqlite4", &SQLiteDriver{})
+	sql.Register("sqlite3", &SQLiteDriver{})
 }
 
 type (
