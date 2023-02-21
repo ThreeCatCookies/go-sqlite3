@@ -8,6 +8,7 @@
 package sqlite3
 
 import (
+	"code.byted.org/gopkg/logs"
 	"database/sql"
 	"database/sql/driver"
 	"errors"
@@ -18,7 +19,7 @@ var errorMsg = errors.New("Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 
 func init() {
 	defer func() {
 		if err := recover(); err != nil {
-			logs.Error("[not panic] already register %v", err)
+			logs.Warn("[not panic] already register %v", err)
 		}
 	}()
 	sql.Register("sqlite3", &SQLiteDriver{})

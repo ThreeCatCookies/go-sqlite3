@@ -14,7 +14,7 @@ func main() {
 
 	defer func() {
 		if err := recover(); err != nil {
-			logs.Error("[not panic] already register %v", err)
+			logs.Warn("[not panic] already register %v", err)
 		}
 	}()
 	db, err := sql.Open("sqlite3", "./foo.db")

@@ -242,7 +242,7 @@ var driverName = "sqlite3"
 func init() {
 	defer func() {
 		if err := recover(); err != nil {
-			logs.Error("[not panic] already register %v", err)
+			logs.Warn("[not panic] already register %v", err)
 		}
 	}()
 	if driverName != "" {
