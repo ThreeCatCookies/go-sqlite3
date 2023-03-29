@@ -1,6 +1,7 @@
 package main
 
 import (
+	"code.byted.org/gopkg/logs"
 	"database/sql"
 	"fmt"
 	_ "github.com/mattn/go-sqlite3"
@@ -11,6 +12,11 @@ import (
 func main() {
 	os.Remove("./foo.db")
 
+	defer func() {
+		if err := recover(); err != nil {
+			logs.Error("[not panic] already register %v", err)
+		}
+	}()
 	db, err := sql.Open("sqlite3", "./foo.db")
 	if err != nil {
 		log.Fatal(err)
@@ -42,7 +48,10 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	tx.Commit()
+	err = tx.Commit()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	rows, err := db.Query("select id, name from foo")
 	if err != nil {
