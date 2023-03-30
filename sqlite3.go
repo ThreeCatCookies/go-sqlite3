@@ -193,7 +193,6 @@ static int sqlite3_system_errno(sqlite3 *db) {
 */
 import "C"
 import (
-	"code.byted.org/gopkg/logs"
 	"context"
 	"database/sql"
 	"database/sql/driver"
@@ -242,7 +241,7 @@ var driverName = "sqlite3"
 func init() {
 	defer func() {
 		if err := recover(); err != nil {
-			logs.Warn("[not panic] already register %v", err)
+			fmt.Printf("[not panic] already register %v", err)
 		}
 	}()
 	if driverName != "" {
